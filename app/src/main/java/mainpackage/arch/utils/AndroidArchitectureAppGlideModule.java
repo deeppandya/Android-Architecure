@@ -8,5 +8,5 @@ import com.bumptech.glide.module.AppGlideModule;
  */
 
 @GlideModule
-public final class TradeRevAppGlideModule extends AppGlideModule {
+public final class AndroidArchitectureAppGlideModule extends AppGlideModule {
 }
