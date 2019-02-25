@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import dagger.android.AndroidInjection;
 import mainpackage.arch.R;
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MovieDbAdapter.On
     private MovieDbViewModel movieDbViewModel;
     private RecyclerView recyclerView;
     private ProgressBar itemProgressBar;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -54,9 +57,11 @@ public class MainActivity extends AppCompatActivity implements MovieDbAdapter.On
         inject();
         super.onCreate(savedInstanceState);
 
-        AndroidInjection.inject(this);
-
         setContentView(R.layout.activity_main);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        mFirebaseAnalytics.setCurrentScreen(this, MainActivity.class.getName(), null /* class override */);
 
         movieDbViewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieDbViewModel.class);
         movieDbViewModel.resultModelLiveData().observe(this, movieResultModel -> {
@@ -113,6 +118,12 @@ public class MainActivity extends AppCompatActivity implements MovieDbAdapter.On
 
     @Override
     public void onItemClick(View view, MovieModel movieModel, int position) {
+        Bundle params = new Bundle();
+        params.putString("movie_overview", movieModel.getOverview());
+        params.putString("released_date", movieModel.getReleaseDate());
+        params.putString("title", movieModel.getTitle());
+        mFirebaseAnalytics.logEvent("clicked_movie", params);
+
         Intent intent = new Intent(this, MovieDetailActivity.class);
         intent.putExtra(Constants.MOVIE, movieModel);
         startActivity(intent);

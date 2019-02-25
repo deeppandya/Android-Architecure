@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/content_description"
-        app:imageAspectRatio="@dimen/aspect_ratio" />
+        app:imgAspectRatio="@dimen/aspect_ratio" />
 
     <TextView
         android:id="@+id/tv_movie_overview"

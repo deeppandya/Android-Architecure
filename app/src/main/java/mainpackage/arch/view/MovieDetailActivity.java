@@ -10,6 +10,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Objects;
 
@@ -22,11 +23,16 @@ import mainpackage.arch.utils.GlideApp;
 public class MovieDetailActivity extends AppCompatActivity {
 
     private MovieModel movieModel;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        mFirebaseAnalytics.setCurrentScreen(this, MainActivity.class.getName(), null /* class override */);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -40,6 +46,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         setViews();
+
+        Bundle params = new Bundle();
+        params.putString("movie_overview", movieModel.getOverview());
+        params.putString("released_date", movieModel.getReleaseDate());
+        params.putString("title", movieModel.getTitle());
+        mFirebaseAnalytics.logEvent("detailed_movie", params);
     }
 
     private void setViews() {

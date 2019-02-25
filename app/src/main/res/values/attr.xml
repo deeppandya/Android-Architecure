@@ -5,7 +5,7 @@
     </declare-styleable>
 
     <declare-styleable name="AspectLockedImageView">
-        <attr name="imageAspectRatio" format="dimension"/>
+        <attr name="imgAspectRatio" format="dimension"/>
     </declare-styleable>
 
 </resources>
