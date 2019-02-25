@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import mainpackage.arch.dependecyinjection.AppInjector;
+import mainpackage.arch.dependecyinjection.DaggerAppComponent;
 
 /**
  * Created by deepp on 2017-11-29.
@@ -23,7 +23,8 @@ public class AndroidArchitectureApplication extends Application implements HasAc
     @Override
     public void onCreate() {
         super.onCreate();
-        AppInjector.init(this);
+        DaggerAppComponent.builder().application(this)
+                .build().inject(this);
     }
 
     @Override

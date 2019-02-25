@@ -21,7 +21,7 @@ public abstract class InfiniteScrollListener extends RecyclerView.OnScrollListen
                 mPreviousTotal = totalItemCount;
             }
         }
-        int visibleThreshold = 5;
+        int visibleThreshold = 2;
         if (!mLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
             onLoadMore();
             mLoading = true;

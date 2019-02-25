@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Arch</string>
+    <string name="app_name">Flopp</string>
     <string name="content_description">Content discription</string>
     <string name="dimension_text">Photo dimension : %d X %d</string>
     <string name="created_date_text">Created date : %s</string>
